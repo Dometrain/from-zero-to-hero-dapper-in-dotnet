@@ -7,12 +7,14 @@ namespace DapperConsole.Security_And_Performance_Best_Practices;
 public class MultipleRowQueryManager
 {
     //Unbuffered Query
-    public IEnumerable<Product> GetProductByColourUnbuffered(string colour)
+     public IEnumerable<Product> GetProductByColourUnbuffered(SqlConnection connection, string colour, int pageSize, int pageNumber)
     {
-        using var connection = new SqlConnection(Config.ConnectionString);
-        var sql = "SELECT * FROM Sales.LT.Product WHERE Color = @colour";
+        var sql = @"SELECT * FROM SalesLT.Product 
+                    WHERE Color = @Colour ORDER BY ProductId 
+                    OFFSET @Offset ROWS 
+                    FETCH NEXT @Limit ROWS ONLY";
         var result = connection.Query<Product>(sql, 
-            new { Color = @colour },
+            new { Colour = colour, Offset = (pageNumber -1) * pageSize, Limit = pageSize },
             buffered: false);
         return result;
     }
