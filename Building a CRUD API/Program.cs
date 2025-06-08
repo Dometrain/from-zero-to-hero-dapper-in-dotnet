@@ -1,5 +1,5 @@
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Building_a_CRUD_API.Models;
 using Building_a_CRUD_API.Repositories;
 using Building_a_CRUD_API.Services;
