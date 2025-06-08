@@ -17,6 +17,16 @@ class Program
         var result = singleRowQueryManager
             .GetSalesOrderDetail(
                 "12706FAB-F3A2-48C6-B7C7-1CCDE4081F18; UPDATE SalesLT.SalesOrderDetail SET UnitPriceDiscount = 1000;");
+
+        //Unbuffered Operation Example
+        var multipleRowQueryManager = new MultipleRowQueryManager();
+        using var connection = new SqlConnection(Config.ConnectionString);
+        var unbufferedResult = multipleRowQueryManager.GetProductByColourUnbuffered(connection,"Red", 
+            10, 1);
+        foreach (var product in unbufferedResult)
+        {
+            Console.WriteLine(product.ProductId);
+        }
     }
   
 }
