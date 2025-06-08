@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Dapper;
 using DapperConsole.Models;
 using DapperConsole.Non_Query_Operations_Examples;
